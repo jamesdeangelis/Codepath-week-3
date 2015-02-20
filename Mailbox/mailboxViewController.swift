@@ -16,6 +16,7 @@ class mailboxViewController: UIViewController {
     @IBOutlet weak var archiveIconView: UIImageView!
 
     var messageStartX : CGFloat!
+    var messagePanBegan : CGFloat!
     var laterIconStartX : CGFloat!
     var archiveIconStartX: CGFloat!
     
@@ -34,7 +35,8 @@ class mailboxViewController: UIViewController {
         messageStartX = messageView.frame.origin.x
         laterIconStartX = laterIconView.frame.origin.x
         archiveIconStartX = archiveIconView.frame.origin.x
-        messageBackgroundColor = messageContainer.backgroundColor
+        messageBackgroundColor = UIColor.grayColor()
+//        messageBackgroundColor = messageContainer.backgroundColor
 }
 
     override func didReceiveMemoryWarning() {
@@ -46,39 +48,59 @@ class mailboxViewController: UIViewController {
         var location = sender.locationInView(view)
         var translation = sender.translationInView(view)
         var velocity = sender.velocityInView(view)
-        messageBackgroundColor = UIColor.grayColor()
         
+
         if (sender.state == UIGestureRecognizerState.Began) {
-            messageStartX = messageView.frame.origin.x
-            laterIconStartX = laterIconView.frame.origin.x
+            messagePanBegan = messageView.frame.origin.x
+//            laterIconStartX = laterIconView.frame.origin.x
             
             
         } else if(sender.state == UIGestureRecognizerState.Changed) {
-            finalMessagePosition = messageStartX + translation.x
             
-//            if (translation.x < -60) {
-//                finalaterIconPosition = messageStartX + translation.x
+            finalMessagePosition = messagePanBegan + translation.x
+//            finalaterIconPosition = laterIconStartX + translation.x
+            
+//            if (velocity.x < 0 && translation.x < -60) {
+//                finalaterIconPosition = laterIconStartX + translation.x
 //            }
-            
-            println("translation: \(translation.x)")
-            println("velocity: \(velocity.x)")
             
             if (velocity.x < 0 && translation.x < -60) {
                 messageContainer.backgroundColor = UIColor.blueColor()
+                messageView.alpha = 0.5
+                
             } else if (velocity.x < 0 && translation.x < -150) {
-                messageContainer.backgroundColor = UIColor.brownColor()
+                messageContainer.backgroundColor = UIColor.cyanColor()
+                
             } else if (velocity.x > 0 && translation.x > 60) {
-                messageContainer.backgroundColor = UIColor.yellowColor()
+                messageContainer.backgroundColor = UIColor.greenColor()
+                
             } else {
-//                messageContainer.backgroundColor = UIColor.yellowColor()
+                messageContainer.backgroundColor = UIColor.grayColor()
             }
             
-            
             messageView.frame.origin.x = finalMessagePosition
-            
 //            laterIconView.frame.origin.x = finalaterIconPosition
             
         } else if(sender.state == UIGestureRecognizerState.Ended) {
+            
+            if (velocity.x < 0 && translation.x < -60) {
+                println("velocity: \(velocity.x)")
+                println("translation x: \(translation.x)")
+                
+                UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
+                    self.messageView.frame.origin.x = -300
+                }, completion: nil)
+                
+            } else if (velocity.x > 0 && translation.x > 60) {
+                UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
+                    self.messageView.frame.origin.x = 340
+                }, completion: nil)
+            
+            } else {
+                UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 15, options: nil, animations: { () -> Void in
+                    self.messageView.frame.origin.x = 20
+                }, completion: nil)
+            }
             
         }
     }

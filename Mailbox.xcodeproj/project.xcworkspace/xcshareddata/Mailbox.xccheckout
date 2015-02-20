@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6FA67518-535F-467E-B753-A2F018685BCE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Mailbox</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>79D67122B480D7B015DDE02DE060298132D7D331</key>
+		<string>github.com:jamesdeangelis/Codepath-week-3.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Mailbox.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>79D67122B480D7B015DDE02DE060298132D7D331</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:jamesdeangelis/Codepath-week-3.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>79D67122B480D7B015DDE02DE060298132D7D331</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>79D67122B480D7B015DDE02DE060298132D7D331</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Mailbox</string>
+		</dict>
+	</array>
+</dict>
+</plist>
