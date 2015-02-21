@@ -17,7 +17,7 @@ class mailboxViewController: UIViewController {
 
     var messageStartX : CGFloat!
     var messagePanBegan : CGFloat!
-    var laterIconStartX : CGFloat!
+    var laterIconStartX : CGPoint!
     var archiveIconStartX: CGFloat!
     
     var finalMessagePosition : CGFloat!
@@ -33,10 +33,15 @@ class mailboxViewController: UIViewController {
         mailScrollView.contentSize = CGSize(width: 320, height:1136)
         
         messageStartX = messageView.frame.origin.x
-        laterIconStartX = laterIconView.frame.origin.x
+//        laterIconStartX = laterIconView.frame.origin.x
         archiveIconStartX = archiveIconView.frame.origin.x
         messageBackgroundColor = UIColor.grayColor()
+        
+        laterIconStartX = CGPoint(x: messageView.frame.width - 30, y: messageView.center.y)
+         messageView.alpha = 0.5
+        
 //        messageBackgroundColor = messageContainer.backgroundColor
+        println("hello world!")
 }
 
     override func didReceiveMemoryWarning() {
@@ -49,25 +54,23 @@ class mailboxViewController: UIViewController {
         var translation = sender.translationInView(view)
         var velocity = sender.velocityInView(view)
         
+        println("velocity: \(velocity.x)")
+        println("translation x: \(translation.x)")
 
         if (sender.state == UIGestureRecognizerState.Began) {
             messagePanBegan = messageView.frame.origin.x
-//            laterIconStartX = laterIconView.frame.origin.x
-            
             
         } else if(sender.state == UIGestureRecognizerState.Changed) {
             
             finalMessagePosition = messagePanBegan + translation.x
-//            finalaterIconPosition = laterIconStartX + translation.x
             
-//            if (velocity.x < 0 && translation.x < -60) {
-//                finalaterIconPosition = laterIconStartX + translation.x
-//            }
-            
-            if (velocity.x < 0 && translation.x < -60) {
-                messageContainer.backgroundColor = UIColor.blueColor()
+//           SHORT SWIPE LEFT
+            if (messageView.center.x < 100 && messageView.center.x > -40) {
                 messageView.alpha = 0.5
+                messageContainer.backgroundColor = UIColor.blueColor()
+                laterIconView.center.x = messageView.center.x + 160 + 50
                 
+//          Long swipe left
             } else if (velocity.x < 0 && translation.x < -150) {
                 messageContainer.backgroundColor = UIColor.cyanColor()
                 
@@ -80,13 +83,11 @@ class mailboxViewController: UIViewController {
             
             messageView.frame.origin.x = finalMessagePosition
 //            laterIconView.frame.origin.x = finalaterIconPosition
-            
+//            
         } else if(sender.state == UIGestureRecognizerState.Ended) {
             
             if (velocity.x < 0 && translation.x < -60) {
-                println("velocity: \(velocity.x)")
-                println("translation x: \(translation.x)")
-                
+
                 UIView.animateWithDuration(0.3, delay: 0, options: .CurveEaseInOut, animations: { () -> Void in
                     self.messageView.frame.origin.x = -300
                 }, completion: nil)
@@ -105,6 +106,9 @@ class mailboxViewController: UIViewController {
         }
     }
     
+    @IBAction func resetButtonPresserd(sender: AnyObject) {
+        messageView.center.x = view.frame.width / 2
+    }
 
     /*
     // MARK: - Navigation
